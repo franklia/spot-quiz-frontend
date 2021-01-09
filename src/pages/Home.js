@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ConfirmUserCredentials from '../helpers/ConfirmUserCredentials.js';
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     textAlign: 'center',
   },
@@ -27,7 +27,7 @@ const styles = theme => ({
   instructionsNumbers: {
     borderRadius: '50%',
     border: '1px solid',
-    height: 25,
+    // height: 25,
     width: 25,
     display: 'inline-block',
     margin: '0 20px 0 0',
@@ -37,7 +37,7 @@ const styles = theme => ({
     fontSize: 18,
   },
   buttonRow: {
-    margin: '30px 0 0 0',
+    margin: '30px 0 0 -10px',
   },
   ctaMinorButton: {
     border: '1px solid #ceddf2',
@@ -55,63 +55,75 @@ const styles = theme => ({
       backgroundColor: '#9eb4d2',
       borderColor: '#9eb4d2',
       color: '#fff',
-    }
-  }
+    },
+  },
 });
 
 class Home extends Component {
-
   componentDidMount = () => {
     const { auth } = this.props;
     ConfirmUserCredentials(auth, this.setAuth0Id, () => {});
-  }
+  };
 
-  setAuth0Id = id => {
-    this.setState({ auth0_id: id })
-  }
+  setAuth0Id = (id) => {
+    this.setState({ auth0_id: id });
+  };
 
   login = () => {
     this.props.auth.login();
-  }
+  };
 
   logout = () => {
     this.props.auth.logout();
-  }
+  };
 
   render() {
-
     const { classes } = this.props;
 
     return (
       <div className={classes.container}>
-        <h1 className={classes.heading}>Skills are learned via <span className='word-highlight'>repetition</span></h1>
-        <p className={classes.subText}>Becoming an expert in your field takes time and dedication. Spot Quiz was created to help improve the author's coding skills, but you can use it to learn anything. Getting started is easy...</p>
+        <h1 className={classes.heading}>
+          Skills are learned via <span className='word-highlight'>repetition</span>
+        </h1>
+        <p className={classes.subText}>
+          Becoming an expert in your field takes time and dedication. Spot Quiz was created to help improve the author's
+          coding skills, but you can use it to learn anything. Getting started is easy...
+        </p>
         <Grid container justify='center'>
           <Grid item>
             <div className={classes.instructionsContainer}>
-              <div className={classes.instructionsNumbers}>1</div><span className={classes.instructionsText}>Create a category to group subject matter</span>
+              <div className={classes.instructionsNumbers}>1</div>
+              <span className={classes.instructionsText}>To experience it in action, click Test Drive</span>
             </div>
             <div className={classes.instructionsContainer}>
-              <div className={classes.instructionsNumbers}>2</div><span className={classes.instructionsText}>Add a series of questions and answers</span>
+              <div className={classes.instructionsNumbers}>2</div>
+              <span className={classes.instructionsText}>Next, sign up to create your own account</span>
             </div>
             <div className={classes.instructionsContainer}>
-              <div className={classes.instructionsNumbers}>3</div><span className={classes.instructionsText}>Test yourself regularly to build your skills</span>
+              <div className={classes.instructionsNumbers}>3</div>
+              <span className={classes.instructionsText}>Add a series of questions and answers</span>
+            </div>
+            <div className={classes.instructionsContainer}>
+              <div className={classes.instructionsNumbers}>4</div>
+              <span className={classes.instructionsText}>Test yourself regularly to build your skills</span>
             </div>
           </Grid>
         </Grid>
         <Grid container spacing={40} justify='center' className={classes.buttonRow}>
           <Grid item>
-            <Button component={Link} to='/test' variant='contained' className='button-general'>Test Drive</Button>
+            <Button component={Link} to='/test' variant='contained' className='button-general'>
+              Test Drive
+            </Button>
           </Grid>
-          {
-            !localStorage.isLoggedIn && (
-              <>
-                <Grid item>
-                  <Button onClick={this.login} variant='contained' className={classes.ctaMinorButton}>Login / Sign Up</Button>
-                </Grid>
-              </>
-            )
-          }
+          {!localStorage.isLoggedIn && (
+            <>
+              <Grid item>
+                <Button onClick={this.login} variant='contained' className={classes.ctaMinorButton}>
+                  Login / Sign Up
+                </Button>
+              </Grid>
+            </>
+          )}
         </Grid>
       </div>
     );
